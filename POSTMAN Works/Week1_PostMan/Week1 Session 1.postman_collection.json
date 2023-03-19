@@ -1,0 +1,360 @@
+{
+	"info": {
+		"_postman_id": "391dbe6c-6a83-4f93-8c20-2ad229233610",
+		"name": "Week1 Session 1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17700530"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"Send with postman\",\r\n    \"short_description\": \"Short desc with postman\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev108364.service-now.com/api/now/table/incident",
+					"protocol": "https",
+					"host": [
+						"dev108364",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"incident"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllIncidents",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev108364.service-now.com/api/now/table/incident",
+					"protocol": "https",
+					"host": [
+						"dev108364",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"incident"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateShortDescPut",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"short_description\":\"Updated description by Ganesh FOR SECOND TIME\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev108364.service-now.com/api/now/table/incident/37c31e741b55a11056928623604bcbb9",
+					"protocol": "https",
+					"host": [
+						"dev108364",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"incident",
+						"37c31e741b55a11056928623604bcbb9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetOneIncident",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev108364.service-now.com/api/now/table/incident/37c31e741b55a11056928623604bcbb9",
+					"protocol": "https",
+					"host": [
+						"dev108364",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"incident",
+						"37c31e741b55a11056928623604bcbb9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteIncident",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://dev108364.service-now.com/api/now/table/incident/37c31e741b55a11056928623604bcbb9",
+					"protocol": "https",
+					"host": [
+						"dev108364",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"incident",
+						"37c31e741b55a11056928623604bcbb9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateCR",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201 from SNOW\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"CHG\");\r",
+							"});\r",
+							"var resp = pm.response.json();\r",
+							"var sys_id = resp.result.sys_id;\r",
+							"console.log(sys_id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"New CR by Ganesh\",\r\n    \"short_description\": \"Short Descr of the CR\",\r\n    \"cab_date_time\": \"2022-05-21\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev108364.service-now.com/api/now/table/change_request",
+					"protocol": "https",
+					"host": [
+						"dev108364",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"change_request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateCR",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"New Short desc updated for 2nd time\");\r",
+							"});\r",
+							"var resp = pm.response.json();\r",
+							"var short_desc = resp.result.short_description;\r",
+							"console.log(short_desc);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"short_description\": \"New Short desc updated for 2nd time\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev108364.service-now.com/api/now/table/change_request/4fd7eab41b95a11056928623604bcbf8",
+					"protocol": "https",
+					"host": [
+						"dev108364",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"change_request",
+						"4fd7eab41b95a11056928623604bcbf8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteCR",
+			"request": {
+				"method": "DELETE",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "GetCR",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"CHG0030003\");\r",
+							"});\r",
+							"var resp = pm.response.json();\r",
+							"var task_id = resp.result[0].task_effective_number;\r",
+							"var sys_id = resp.result[0].sys_id;\r",
+							"console.log(\"CR number is \" +task_id);\r",
+							"console.log(\"Sys ID is \" + sys_id);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev108364.service-now.com/api/now/table/change_request?task_effective_number=CHG0030003&sysparm_fields=number,short_description,sys_id,task_effective_number,sys_created_by,cab_date_time",
+					"protocol": "https",
+					"host": [
+						"dev108364",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"change_request"
+					],
+					"query": [
+						{
+							"key": "task_effective_number",
+							"value": "CHG0030003"
+						},
+						{
+							"key": "sysparm_fields",
+							"value": "number,short_description,sys_id,task_effective_number,sys_created_by,cab_date_time"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "Saathvika-25",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Response time is less than 1500ms\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(1500);",
+					"});"
+				]
+			}
+		}
+	]
+}

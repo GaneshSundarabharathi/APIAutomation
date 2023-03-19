@@ -1,0 +1,308 @@
+{
+	"info": {
+		"_postman_id": "c1b0e3ff-44aa-4969-82aa-d4db738a520b",
+		"name": "JIRAProjectHomeWork",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17700530"
+	},
+	"item": [
+		{
+			"name": "CreateBug",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp=pm.response.json();\r",
+							"var jiraid = resp.id;\r",
+							"console.log(jiraid);\r",
+							"pm.globals.set(\"jiraid\", jiraid);\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"JLR-\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fields\": {\r\n    \"project\":\r\n                {\r\n                    \"key\": \"JLR\"\r\n                },\r\n    \"summary\": \"create issue in my own project\",\r\n    \"description\": \"Creating of an issue using project keys and issue type names using the REST API\",\r\n    \"issuetype\": {\r\n                    \"name\": \"Bug\"\r\n                }\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fullstackapilearning.atlassian.net/rest/api/2/issue/",
+					"protocol": "https",
+					"host": [
+						"fullstackapilearning",
+						"atlassian",
+						"net"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getbug",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var id = pm.globals.get(\"jiraid\");\r",
+							"pm.test(\"Bug ID is matching\", function () {\r",
+							"    var resp=pm.response.json();\r",
+							"    pm.expect(resp.id).to.eql(id);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://fullstackapilearning.atlassian.net/rest/api/2/issue/{{jiraid}}",
+					"protocol": "https",
+					"host": [
+						"fullstackapilearning",
+						"atlassian",
+						"net"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						"{{jiraid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Updatebugsummary",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fields\": {\r\n\r\n            \"summary\": \"Updated summary\"\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fullstackapilearning.atlassian.net/rest/api/2/issue/{{jiraid}}",
+					"protocol": "https",
+					"host": [
+						"fullstackapilearning",
+						"atlassian",
+						"net"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						"{{jiraid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateBugDescr",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fields\": {\r\n\r\n        \"description\": \"Updated description using the postman tool for second time\"\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fullstackapilearning.atlassian.net/rest/api/2/issue/{{jiraid}}",
+					"protocol": "https",
+					"host": [
+						"fullstackapilearning",
+						"atlassian",
+						"net"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						"{{jiraid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteBug",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fields\": {\r\n\r\n        \"description\": \"Updated description using the postman tool for second time\"\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fullstackapilearning.atlassian.net/rest/api/2/issue/{{jiraid}}",
+					"protocol": "https",
+					"host": [
+						"fullstackapilearning",
+						"atlassian",
+						"net"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						"{{jiraid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetbugAfterDelete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"404 - Defect not found\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Defect does not exist or may have been deleted\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.errorMessages[0]).to.eql(\"Issue does not exist or you do not have permission to see it.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://fullstackapilearning.atlassian.net/rest/api/2/issue/{{jiraid}}",
+					"protocol": "https",
+					"host": [
+						"fullstackapilearning",
+						"atlassian",
+						"net"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						"{{jiraid}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "username",
+				"value": "ganesh.sundarabharathi@gmail.com",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "ATATT3xFfGF0KMex7S3UGTf1n-PvCqGechQkMYULFC8aoNifrrlx_IQUK6qvyT3GZXqpKJ418f2Q0o5apUZQqlK9iAsnBdsoVzXW-3Gb8-xxG-jUq0LGGIRSLXhRPvdIB1WMioTGIvcgnd_8qsrsVT5DLvfm6rCVj2a9l6_UNVrBE9eKUOFf1GM=1A44FF07",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Response time is less than 2000ms\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+					"});"
+				]
+			}
+		}
+	]
+}

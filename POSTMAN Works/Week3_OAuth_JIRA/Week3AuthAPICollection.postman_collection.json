@@ -1,0 +1,159 @@
+{
+	"info": {
+		"_postman_id": "ff364188-55a5-492b-bf43-2ec2583ed2df",
+		"name": "Week3AuthAPICollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17700530"
+	},
+	"item": [
+		{
+			"name": "CreateOAUTHToken Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = pm.response.json();\r",
+							"var token = resp.access_token;\r",
+							"console.log(token);\r",
+							"pm.globals.set(\"snow_token\", token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "ad75d94560212110e0b9089bedfe4388",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "R~OdWNPem^",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Saathvika-25",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{URL}}//oauth_token.do",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"",
+						"oauth_token.do"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateCR Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201 from SNOW\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"CHG\");\r",
+							"});\r",
+							"var resp = pm.response.json();\r",
+							"var sys_id = resp.result.sys_id;\r",
+							"var chg = resp.result.number;\r",
+							"console.log(sys_id);\r",
+							"pm.globals.set(\"system_id\", sys_id);\r",
+							"pm.globals.set(\"change_no\", chg);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"{{description}}\",\r\n    \"short_description\": \"{{short_desc}}\",\r\n    \"cab_date_time\": \"{{cab_date}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/api/now/table/change_request",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"change_request"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{snow_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
